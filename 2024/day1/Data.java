@@ -1,4 +1,4 @@
-public class Data {
+class Data {
     //this function parses data into acceptable format (2d-array)
     public int[][] getParsedData() {
         String data = "35446,18696/" +

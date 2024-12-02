@@ -1,4 +1,4 @@
-class solution {
+class solution1 {
     public static void main(String[] args) {
 
         // object to access input data
