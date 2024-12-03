@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
-class solution1 {
+public class solution2 {
     public static void main(String[] args) {
+
         ArrayList<Integer> left = new ArrayList<Integer>(getExtractedData("left"));
         ArrayList<Integer> right = new ArrayList<Integer>(getExtractedData("right"));
 
@@ -11,10 +12,11 @@ class solution1 {
         }
 
         System.out.println(result);
+
     }
 
     public static ArrayList<Integer> getExtractedData(String type) {
-        String data = getData() + "abcde";
+        String data = getData() + "abcdeghijklm";
 
         ArrayList<Integer> left_data = new ArrayList<Integer>();
         ArrayList<Integer> right_data = new ArrayList<Integer>();
@@ -25,10 +27,18 @@ class solution1 {
         boolean validity = true;
         ;
         boolean starting_bracket = false;
+        // boolean left=false,right=false;
         boolean comma = false;
         int temp_left = 0, temp_right = 0;
-        for (int i = 0; i < data.length() - 4; i++) {
-            if (data.substring(i, i + 4).equals("mul(")) {
+        boolean enabled = true;
+        for (int i = 0; i < data.length() - 12; i++) {
+            if (data.substring(i, i + 4).equals("do()")) {
+                enabled = true;
+            }
+            if (data.substring(i, i + 7).equals("don't()")) {
+                enabled = false;
+            }
+            if (data.substring(i, i + 4).equals("mul(") && enabled) {
                 state = 1;
                 validity = true;
                 starting_bracket = false;
@@ -37,7 +47,7 @@ class solution1 {
                 temp_left = 0;
                 temp_right = 0;
             }
-            if (state == 1) {
+            if (state == 1 && enabled) {
 
                 if (!((data.charAt(i) == 'm') ||
                         (data.charAt(i) == 'u') ||
@@ -51,7 +61,7 @@ class solution1 {
                     state = 2;
                 }
             }
-            if (state == 2) {
+            if (state == 2 && enabled) {
                 if (Character.isDigit(data.charAt(i)) || data.charAt(i) == '(' || data.charAt(i) == ')'
                         || data.charAt(i) == ',') {
                     better_data.add(data.charAt(i));
